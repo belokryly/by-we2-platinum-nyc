@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Platinum NYC — Concept Walkthrough · We2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     PLATINUM NYC — CLIENT WALKTHROUGH BY WE2 (FAMILY STUDIO)
+  ========================================================== */
+
+  :root {
+    --live-url: './';
+  }
+
+  [data-theme="dark"] {
+    --bg: #0B0C0F;
+    --bg-2: #14161B;
+    --bg-3: #1B1E25;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    --text: #F4F5F7;
+    --text-2: #A8ABB4;
+    --text-3: #6B6E76;
+    --accent: #E8E9EC;
+    --accent-2: #BFC8D6;
+    --shadow: 0 30px 80px -20px rgba(0,0,0,0.6);
+    --frame: #2A2D34;
+    --frame-edge: #3A3D44;
+    --frame-rim: rgba(255, 255, 255, 0.12);
+  }
+  [data-theme="light"] {
+    --bg: #F7F7F9;
+    --bg-2: #FFFFFF;
+    --bg-3: #EEEFF2;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.16);
+    --text: #0A0B0D;
+    --text-2: #525560;
+    --text-3: #8A8E96;
+    --accent: #0A0B0D;
+    --accent-2: #525560;
+    --shadow: 0 30px 80px -20px rgba(0,0,0,0.16);
+    --frame: #C0C2C8;
+    --frame-edge: #A4A7AE;
+    --frame-rim: rgba(0, 0, 0, 0.1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(circle 700px at 5% 0%, rgba(232, 233, 236, 0.05), transparent 60%),
+      radial-gradient(circle 900px at 100% 80%, rgba(191, 200, 214, 0.04), transparent 60%);
+    transition: opacity 0.4s;
+  }
+  [data-theme="light"] body::before { opacity: 0.4; }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+
+  /* ============ STICKY TOP BAR ============ */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(11, 12, 15, 0.72);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.4s;
+  }
+  [data-theme="light"] .top-bar { background: rgba(247, 247, 249, 0.78); }
+  .top-bar-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .brand { display: flex; align-items: center; gap: 0.7rem; min-width: 0; }
+  .brand-mark {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background:
+      conic-gradient(from 45deg, transparent, rgba(255,255,255,0.22), transparent 80deg, transparent 220deg, rgba(255,255,255,0.15), transparent 320deg),
+      repeating-radial-gradient(circle, #08090C 0 1px, #1F2228 1px 2px),
+      #08090C;
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+    position: relative;
+    animation: spin 3s linear infinite;
+    flex-shrink: 0;
+  }
+  .brand-mark::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 32%; height: 32%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #F4F5F7, #BFC8D6 60%, #8A8E96);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.5);
+  }
+  .brand-mark::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 3px; height: 3px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #08090C;
+    z-index: 2;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .brand-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .brand-name {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .brand-tag {
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .controls { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+  .toggle-group {
+    display: flex;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 3px;
+    position: relative;
+  }
+  .toggle-group button {
+    background: transparent;
+    border: none;
+    padding: 0.4rem 0.85rem;
+    font-family: inherit;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    cursor: pointer;
+    border-radius: 100px;
+    transition: color 0.3s;
+    z-index: 1;
+    position: relative;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .toggle-group button.active { color: var(--bg); }
+  .toggle-group::before {
+    content: '';
+    position: absolute;
+    top: 3px; bottom: 3px;
+    background: var(--text);
+    border-radius: 100px;
+    transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+  }
+  .toggle-group[data-active="0"]::before { left: 3px; width: calc(50% - 3px); }
+  .toggle-group[data-active="1"]::before { left: 50%; width: calc(50% - 3px); }
+
+  /* ============ HERO ============ */
+  .hero { padding: 5rem 0 3rem; text-align: center; }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    margin-bottom: 1.6rem;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #25D85A;
+    box-shadow: 0 0 8px rgba(37, 216, 90, 0.6);
+  }
+  .hero h1 {
+    font-size: clamp(1.7rem, 5vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.2rem;
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 0.96rem;
+    color: var(--text-2);
+    max-width: 580px;
+    margin: 0 auto 1.8rem;
+    line-height: 1.6;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.95rem 1.7rem;
+    background: var(--text);
+    color: var(--bg);
+    text-decoration: none;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 50px -10px rgba(232, 233, 236, 0.35);
+  }
+  [data-theme="light"] .hero-cta:hover { box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.25); }
+  .hero-cta svg { width: 13px; height: 13px; }
+
+  /* ============ FEATURE GRID ============ */
+  .features { padding: 3rem 0 4rem; }
+
+  .feature-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin-bottom: 6rem;
+    padding-bottom: 6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .feature-row:last-of-type { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+  .feature-row.reversed > .device { order: 2; }
+  .feature-row.reversed > .copy { order: 1; }
+
+  @media (max-width: 920px) {
+    .feature-row, .feature-row.reversed {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+      padding-bottom: 3.5rem;
+    }
+    .feature-row.reversed > .device,
+    .feature-row.reversed > .copy { order: initial; }
+    .feature-row > .device { order: -1; }
+  }
+
+  .copy { padding: 0.5rem 0; }
+  .feature-num {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--text-3);
+    margin-bottom: 1.1rem;
+    text-transform: uppercase;
+    flex-wrap: wrap;
+  }
+  .feature-num .badge {
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.58rem;
+    color: var(--text-2);
+    letter-spacing: 0.18em;
+  }
+  .feature-num .badge.mobile { background: rgba(37, 216, 90, 0.1); color: #25D85A; border-color: rgba(37, 216, 90, 0.3); }
+  .feature-num .badge.desktop { background: rgba(100, 150, 255, 0.1); color: #6496FF; border-color: rgba(100, 150, 255, 0.3); }
+  .feature-num .badge.both { background: rgba(232, 233, 236, 0.05); }
+  [data-theme="light"] .feature-num .badge.both { background: rgba(0,0,0,0.04); }
+
+  .feature-title {
+    font-size: clamp(1.35rem, 3vw, 2.1rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    line-height: 1.18;
+  }
+  .feature-text {
+    color: var(--text-2);
+    font-size: 0.94rem;
+    line-height: 1.65;
+    margin-bottom: 1.2rem;
+  }
+  .feature-bullets { list-style: none; margin-top: 1rem; }
+  .feature-bullets li {
+    padding: 0.55rem 0 0.55rem 1.6rem;
+    color: var(--text-2);
+    font-size: 0.88rem;
+    position: relative;
+    line-height: 1.55;
+  }
+  .feature-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 1rem;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--text);
+    opacity: 0.7;
+  }
+  .feature-bullets li strong { color: var(--text); font-weight: 700; }
+  .feature-bullets li code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.82em;
+    background: var(--bg-3);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  /* ============ DEVICE FRAMES — THIN ============ */
+  .device { display: flex; align-items: center; justify-content: center; }
+
+  /* iPhone — thin minimal frame */
+  .iphone {
+    position: relative;
+    width: 270px;
+    aspect-ratio: 9 / 19.5;
+    background: var(--frame);
+    border-radius: 38px;
+    padding: 5px; /* thin bezel */
+    box-shadow: var(--shadow);
+    flex-shrink: 0;
+  }
+  .iphone::before {
+    /* subtle outer rim highlight */
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 38px;
+    padding: 1px;
+    background: linear-gradient(160deg, var(--frame-rim), transparent 30%, transparent 70%, var(--frame-rim));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .iphone-screen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 33px;
+    overflow: hidden;
+    position: relative;
+  }
+  .iphone-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+  .iphone-notch {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 22px;
+    background: #000;
+    border-radius: 14px;
+    z-index: 10;
+  }
+  /* Side buttons — thin ticks */
+  .iphone-side-btn {
+    position: absolute;
+    background: var(--frame-edge);
+    border-radius: 1px;
+  }
+  .iphone-side-btn.power { right: -1.5px; top: 110px; width: 2px; height: 60px; }
+  .iphone-side-btn.vol-up { left: -1.5px; top: 95px; width: 2px; height: 42px; }
+  .iphone-side-btn.vol-down { left: -1.5px; top: 150px; width: 2px; height: 42px; }
+  .iphone-side-btn.silence { left: -1.5px; top: 65px; width: 2px; height: 22px; }
+
+  /* MacBook — thin frame */
+  .macbook {
+    width: 100%;
+    max-width: 580px;
+    flex-shrink: 0;
+  }
+  .macbook-screen {
+    background: var(--frame);
+    border-radius: 10px 10px 3px 3px;
+    padding: 8px 8px 6px;
+    box-shadow: var(--shadow);
+    position: relative;
+    border: 1px solid var(--frame-rim);
+    border-bottom: none;
+  }
+  .macbook-camera {
+    position: absolute;
+    top: 3.5px; left: 50%;
+    transform: translateX(-50%);
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #050505;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+    z-index: 2;
+  }
+  .macbook-bezel {
+    background: #000;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 16 / 10;
+  }
+  .macbook-bezel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+  .macbook-base {
+    height: 9px;
+    background: linear-gradient(180deg, var(--frame-edge), var(--frame));
+    border-radius: 0 0 8px 8px;
+    margin: 0 -10px;
+    position: relative;
+    box-shadow: 0 6px 12px -4px rgba(0,0,0,0.25);
+  }
+  .macbook-base::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 18%;
+    height: 3px;
+    background: var(--frame-edge);
+    border-radius: 0 0 5px 5px;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    color: var(--text-3);
+    font-size: 0.74rem;
+  }
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+  .footer-mark {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background:
+      conic-gradient(from 45deg, transparent, rgba(255,255,255,0.2), transparent 80deg),
+      repeating-radial-gradient(circle, #08090C 0 0.8px, #1F2228 0.8px 1.6px),
+      #08090C;
+    position: relative;
+    animation: spin 4s linear infinite;
+  }
+  .footer-mark::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 36%; height: 36%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, #F4F5F7, #8A8E96);
+  }
+
+  /* ============ LANG SWAP ============ */
+  [data-lang="en"] [lang="ru"] { display: none; }
+  [data-lang="ru"] [lang="en"] { display: none; }
+
+  /* ============ FLOATING PRICING BUTTON ============ */
+  .pricing-fab {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 80;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.95rem 1.4rem 0.95rem 0.85rem;
+    background: var(--text);
+    color: var(--bg);
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    box-shadow: 0 12px 40px -10px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, padding 0.3s;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fabIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 1.2s forwards;
+  }
+  @keyframes fabIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .pricing-fab:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px -10px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  [data-theme="light"] .pricing-fab:hover {
+    box-shadow: 0 20px 50px -10px rgba(0,0,0,0.25);
+  }
+  .pricing-fab .fab-icon {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+  .pricing-fab .fab-arrow {
+    transition: transform 0.3s;
+  }
+  .pricing-fab:hover .fab-arrow {
+    transform: translateX(3px);
+  }
+  @media (max-width: 600px) {
+    .pricing-fab {
+      bottom: 1rem;
+      right: 1rem;
+      padding: 0.8rem 1.1rem 0.8rem 0.6rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+    }
+    .pricing-fab .fab-icon { width: 26px; height: 26px; font-size: 0.85rem; }
+    .pricing-fab .fab-text-long { display: none; }
+  }
+
+  /* ============ TEAM SECTION ============ */
+  .team-section {
+    padding: 4rem 0;
+  }
+  .team-head {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .team-eyebrow {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    margin-bottom: 1.2rem;
+  }
+  .team-head h2 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+  }
+  .team-head p {
+    color: var(--text-2);
+    max-width: 520px;
+    margin: 0 auto;
+    font-size: 0.96rem;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  @media (max-width: 700px) {
+    .team-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+  }
+  .team-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 2rem 1.8rem;
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .team-card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-3px);
+  }
+  .team-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin: 0 auto 1.2rem;
+    background: var(--bg-3);
+    border: 2px solid var(--border-strong);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .team-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .team-photo .placeholder {
+    font-family: 'Montserrat', serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-2);
+    letter-spacing: 0.05em;
+  }
+  .team-name {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.3rem;
+  }
+  .team-role {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 1rem;
+  }
+  .team-bio {
+    color: var(--text-2);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  @media (max-width: 600px) {
+    .top-bar-inner { padding: 0.6rem 0.9rem; gap: 0.5rem; }
+    .brand-mark { width: 24px; height: 24px; }
+    .brand-name { font-size: 0.66rem; letter-spacing: 0.12em; }
+    .brand-tag { font-size: 0.5rem; }
+    .toggle-group button { padding: 0.35rem 0.6rem; font-size: 0.6rem; min-width: 30px; }
+
+    .hero { padding: 2.5rem 0 1.5rem; }
+    .hero h1 { font-size: clamp(1.5rem, 7vw, 2.2rem); line-height: 1.15; max-width: 100%; }
+    .hero p { font-size: 0.88rem; }
+    .eyebrow { font-size: 0.58rem; padding: 0.35rem 0.85rem; }
+    .hero-cta { padding: 0.85rem 1.4rem; font-size: 0.68rem; }
+
+    .features { padding: 1rem 0 2.5rem; }
+    .feature-num { font-size: 0.6rem; gap: 0.5rem; }
+    .feature-num .badge { font-size: 0.54rem; padding: 0.25rem 0.55rem; }
+    .iphone { width: 230px; }
+    .iphone-notch { width: 70px; height: 18px; top: 12px; }
+    .iphone-screen { border-radius: 30px; }
+    .iphone { border-radius: 35px; }
+    .iphone::before { border-radius: 35px; }
+
+    .footer-inner { font-size: 0.68rem; }
+  }
+  @media (max-width: 380px) {
+    .iphone { width: 210px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ FLOATING PRICING BUTTON ============ -->
+<a href="pricing.html" class="pricing-fab" aria-label="View pricing">
+  <span class="fab-icon">$</span>
+  <span class="fab-text-short">
+    <span lang="en">Pricing</span>
+    <span lang="ru">Прайс</span>
+  </span>
+  <span class="fab-text-long" style="font-weight: 500; letter-spacing: 0.14em; opacity: 0.7;">
+    <span lang="en">&amp; calculator</span>
+    <span lang="ru">и калькулятор</span>
+  </span>
+  <svg class="fab-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+</a>
+
+<!-- ============ STICKY TOP BAR ============ -->
+<header class="top-bar">
+  <div class="top-bar-inner">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-text">
+        <span class="brand-name">We2 · Family Studio</span>
+        <span class="brand-tag">
+          <span lang="en">Concept Walkthrough</span>
+          <span lang="ru">Презентация концепта</span>
+        </span>
+      </span>
+    </div>
+    <div class="controls">
+      <div class="toggle-group" data-active="0" id="langToggle">
+        <button data-lang-set="en" class="active">EN</button>
+        <button data-lang-set="ru">RU</button>
+      </div>
+      <div class="toggle-group" data-active="0" id="themeToggle">
+        <button data-theme-set="dark" class="active" aria-label="Dark theme">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button data-theme-set="light" aria-label="Light theme">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">
+      <span lang="en">Concept Preview · For Client Review</span>
+      <span lang="ru">Концепт-превью · Для клиента</span>
+    </span>
+    <h1>
+      <span lang="en">Platinum NYC — <span class="accent">a premium karaoke lounge, designed the way people actually use it.</span></span>
+      <span lang="ru">Platinum NYC — <span class="accent">премиум-лаунж, спроектированный под то, как им реально пользуются.</span></span>
+    </h1>
+    <p>
+      <span lang="en">A walkthrough of every feature in the concept — what it does, and why it's there. Switch language or theme up top.</span>
+      <span lang="ru">Разбор каждой фичи концепта — что делает и зачем нужна. Переключить язык или тему — в шапке.</span>
+    </p>
+    <a href="./" target="_blank" rel="noopener" class="hero-cta">
+      <span lang="en">Open the live site</span>
+      <span lang="ru">Открыть сайт</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ============ FEATURE BREAKDOWN ============ -->
+<section class="features">
+  <div class="container">
+
+    <!-- 01 — Hero on phone -->
+    <div class="feature-row">
+      <div class="device">
+        <div class="iphone">
+          <div class="iphone-side-btn silence"></div>
+          <div class="iphone-side-btn vol-up"></div>
+          <div class="iphone-side-btn vol-down"></div>
+          <div class="iphone-side-btn power"></div>
+          <div class="iphone-notch"></div>
+          <div class="iphone-screen">
+            <img src="screenshots/hero_mobile.png" alt="Hero on mobile" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>01 / 08</span>
+          <span class="badge both"><span lang="en">Both versions</span><span lang="ru">Обе версии</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Cinematic first impression</span>
+          <span lang="ru">Кинематографичный первый кадр</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">Full-screen lounge background, large editorial heading, info pills, and two clear CTAs — Reserve and View Menu. Within five seconds, a guest knows where this is, what's served, and how to book.</span>
+          <span lang="ru">Полноэкранный фон лаунжа, крупный редакционный заголовок, инфо-плашки и две понятные кнопки — «Зарезервировать» и «Меню». За 5 секунд гость понимает, где это, что предлагают и как забронировать.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>Parallax background</strong> — image shifts on scroll, gives depth without weight</span><span lang="ru"><strong>Параллакс фона</strong> — изображение смещается при скролле, добавляет глубину без перегруза</span></li>
+          <li><span lang="en"><strong>Platinum gradient</strong> on the headline supports the brand name visually</span><span lang="ru"><strong>Платиновый градиент</strong> в заголовке визуально поддерживает имя бренда</span></li>
+          <li><span lang="en"><strong>Sticky header</strong> turns into a glass blur after scroll — never blocks the view</span><span lang="ru"><strong>Шапка</strong> превращается в стеклянный блюр при скролле — не перекрывает контент</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 02 — Music button -->
+    <div class="feature-row reversed">
+      <div class="device">
+        <div class="iphone">
+          <div class="iphone-side-btn silence"></div>
+          <div class="iphone-side-btn vol-up"></div>
+          <div class="iphone-side-btn vol-down"></div>
+          <div class="iphone-side-btn power"></div>
+          <div class="iphone-notch"></div>
+          <div class="iphone-screen">
+            <img src="screenshots/vibe_mobile.png" alt="Music button on mobile" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>02 / 08</span>
+          <span class="badge both"><span lang="en">Both versions</span><span lang="ru">Обе версии</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">"Play the Vibe" — optional ambient sound</span>
+          <span lang="ru">«Play the Vibe» — звук по желанию</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">A discreet button in the hero plays a club beat synthesised live in the browser — kick, hi-hat, sub-bass, minor pluck chord. It's off by default (browsers block autoplay anyway), so guests opt in. Easy to swap for a real DJ mix or a SoundCloud playlist later.</span>
+          <span lang="ru">Незаметная кнопка в hero включает клубный бит, сгенерированный прямо в браузере — кик, хэт, саб-бас, минорный pluck-аккорд. По умолчанию выключен (браузеры всё равно блокируют автоплей), включает гость сам. Легко заменить на реальный DJ-микс или плейлист SoundCloud.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>118 BPM</strong> — classic deep house tempo, suits the browsing pace</span><span lang="ru"><strong>118 BPM</strong> — классический deep house, под темп листания</span></li>
+          <li><span lang="en"><strong>Smooth fade in/out</strong> when toggled — no abrupt cuts</span><span lang="ru"><strong>Плавный fade in/out</strong> при переключении — без резких обрывов</span></li>
+          <li><span lang="en">No MP3 file required for the preview — works offline too</span><span lang="ru">Для превью не нужен MP3-файл — работает даже офлайн</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 03 — Menu desktop -->
+    <div class="feature-row">
+      <div class="device">
+        <div class="macbook">
+          <div class="macbook-screen">
+            <span class="macbook-camera"></span>
+            <div class="macbook-bezel">
+              <img src="screenshots/menu_desktop.png" alt="Menu on desktop" loading="lazy">
+            </div>
+          </div>
+          <div class="macbook-base"></div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>03 / 08</span>
+          <span class="badge desktop"><span lang="en">Desktop view</span><span lang="ru">Десктоп</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Menu that reads like a luxury card</span>
+          <span lang="ru">Меню как карта премиум-ресторана</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">Six tabbed categories — Burgers, Steaks, Salads, Drinks, Coffee &amp; Desserts, Mojitos. Each item flows in with a soft stagger animation. Signature dishes get a shimmering platinum star and a subtle background tint — that's where the eye goes first. A full-card modal opens for the complete list.</span>
+          <span lang="ru">Шесть категорий-табов: бургеры, стейки, салаты, напитки, кофе и десерты, мохито. Каждый пункт появляется с лёгкой staggered-анимацией. Сигнатурные позиции отмечены мерцающей платиновой звездой и фоновой подсветкой — туда идёт взгляд в первую очередь. Полное меню открывается в модалке.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>One-click highlighting</strong> — flag <code>signature: true</code> in the data</span><span lang="ru"><strong>Подсветка в один клик</strong> — флаг <code>signature: true</code> в данных</span></li>
+          <li><span lang="en"><strong>Hover</strong> slides the row right and shows a platinum bar</span><span lang="ru"><strong>Hover</strong> сдвигает строку и показывает платиновую полосу слева</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 04 — Menu mobile -->
+    <div class="feature-row reversed">
+      <div class="device">
+        <div class="iphone">
+          <div class="iphone-side-btn silence"></div>
+          <div class="iphone-side-btn vol-up"></div>
+          <div class="iphone-side-btn vol-down"></div>
+          <div class="iphone-side-btn power"></div>
+          <div class="iphone-notch"></div>
+          <div class="iphone-screen">
+            <img src="screenshots/menu_mobile.png" alt="Menu on mobile" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>04 / 08</span>
+          <span class="badge mobile"><span lang="en">Mobile difference</span><span lang="ru">Отличие на мобиле</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Same menu, rebuilt for thumbs</span>
+          <span lang="ru">То же меню, переделанное под палец</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">On desktop the menu is a clean two-column list with name and price on one line. On phones — that same row would overflow, so the layout flips: name and price on row one, description on row two. Tabs become a horizontally scrollable strip stretched edge-to-edge so big categories don't wrap awkwardly.</span>
+          <span lang="ru">На десктопе меню — чистый двухколоночный список с именем и ценой в одну строку. На телефоне такая строка не помещается, поэтому верстка меняется: название и цена — в первую строку, описание — во вторую. Табы превращаются в горизонтально-прокручиваемую ленту от края до края, чтобы длинные категории не переносились криво.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en">Tabs scroll horizontally with hidden scrollbar — like Stories</span><span lang="ru">Табы скроллятся горизонтально без видимого скроллбара — как Stories</span></li>
+          <li><span lang="en">Item descriptions wrap into a second row, never get cut off</span><span lang="ru">Описания переносятся на вторую строку, никогда не обрезаются</span></li>
+          <li><span lang="en">All hover effects replaced with tap-friendly active states</span><span lang="ru">Hover-эффекты заменены на тап-совместимые active-состояния</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 05 — Vinyl cursor (desktop only) -->
+    <div class="feature-row">
+      <div class="device">
+        <div class="macbook">
+          <div class="macbook-screen">
+            <span class="macbook-camera"></span>
+            <div class="macbook-bezel">
+              <img src="screenshots/experience_desktop.png" alt="Spinning vinyl cursor on desktop" loading="lazy">
+            </div>
+          </div>
+          <div class="macbook-base"></div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>05 / 08</span>
+          <span class="badge desktop"><span lang="en">Desktop only</span><span lang="ru">Только десктоп</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Spinning vinyl cursor + spotlight</span>
+          <span lang="ru">Курсор-пластинка + следящий свет</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">On desktop, the cursor becomes a small spinning vinyl record with a platinum centre label. A soft spotlight follows it across the page, lifting whatever the guest is looking at. It's a tactile detail — the kind that makes the site feel built, not assembled.</span>
+          <span lang="ru">На десктопе курсор превращается в маленькую вращающуюся виниловую пластинку с платиновой центральной этикеткой. По странице за ним ходит мягкий пучок света и подсвечивает то, что гость рассматривает. Тактильная деталь, благодаря которой сайт ощущается сделанным, а не собранным.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>Pure CSS</strong> — no images, scales perfectly on retina</span><span lang="ru"><strong>Чистый CSS</strong> — без картинок, идеально на retina</span></li>
+          <li><span lang="en"><strong>Spins faster</strong> when hovering over interactive elements</span><span lang="ru"><strong>Крутится быстрее</strong> при наведении на интерактив</span></li>
+          <li><span lang="en">Auto-disabled on touch devices — they have native touch feedback</span><span lang="ru">Авто-отключается на тач-устройствах — там работает нативный тач</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 06 — Sticky bottom bar (mobile only) -->
+    <div class="feature-row reversed">
+      <div class="device">
+        <div class="iphone">
+          <div class="iphone-side-btn silence"></div>
+          <div class="iphone-side-btn vol-up"></div>
+          <div class="iphone-side-btn vol-down"></div>
+          <div class="iphone-side-btn power"></div>
+          <div class="iphone-notch"></div>
+          <div class="iphone-screen">
+            <img src="screenshots/visit_mobile.png" alt="Sticky bottom bar on mobile" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>06 / 08</span>
+          <span class="badge mobile"><span lang="en">Mobile only</span><span lang="ru">Только мобиле</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Sticky bottom bar — Call · Reserve · Instagram</span>
+          <span lang="ru">Закреплённая нижняя панель — Звонок · Бронь · Instagram</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">On phones, three actions stay glued to the bottom of the screen no matter where the guest scrolls. Most traffic comes from Instagram on a phone — which means thumb-zone access to a phone call and a reservation is the single biggest conversion lever on the entire site.</span>
+          <span lang="ru">На телефонах три действия закреплены внизу экрана независимо от прокрутки. Основной трафик придёт из Instagram с телефона — значит, мгновенный доступ большим пальцем к звонку и брони — это самый сильный конверсионный рычаг на всём сайте.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>Call</strong> opens the dialer with the bar's number pre-filled</span><span lang="ru"><strong>Call</strong> открывает диалер с уже введённым номером</span></li>
+          <li><span lang="en"><strong>Reserve</strong> scrolls smoothly to the booking form</span><span lang="ru"><strong>Reserve</strong> плавно прокручивает к форме брони</span></li>
+          <li><span lang="en"><strong>Instagram</strong> opens the bar's profile in a new tab</span><span lang="ru"><strong>Instagram</strong> открывает профиль в новой вкладке</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 07 — Booking form (desktop) -->
+    <div class="feature-row">
+      <div class="device">
+        <div class="macbook">
+          <div class="macbook-screen">
+            <span class="macbook-camera"></span>
+            <div class="macbook-bezel">
+              <img src="screenshots/events_desktop.png" alt="Booking form on desktop" loading="lazy">
+            </div>
+          </div>
+          <div class="macbook-base"></div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>07 / 08</span>
+          <span class="badge both"><span lang="en">Both versions</span><span lang="ru">Обе версии</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Event booking — built to convert groups</span>
+          <span lang="ru">Бронь событий — сделана под групповые продажи</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">A dark glass form with a platinum border, six event-type quick picks (birthday, corporate, private karaoke, holiday, date night, friends), and a clean five-field form. The whole section sits on a fixed parallax lounge background — gives the form weight and atmosphere instead of a sterile white box.</span>
+          <span lang="ru">Тёмная стеклянная форма с платиновой обводкой, шесть быстрых типов событий (день рождения, корпоратив, приватный караоке, праздник, свидание, посиделки) и чистая форма из пяти полей. Вся секция стоит на фиксированном параллакс-фоне — это даёт форме вес и атмосферу вместо стерильного белого блока.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>Success state</strong> with confirmation message after submit</span><span lang="ru"><strong>Состояние успеха</strong> с подтверждением после отправки</span></li>
+          <li><span lang="en">Ready to wire up to email, CRM, or a Telegram bot</span><span lang="ru">Готова к подключению к почте, CRM или Telegram-боту</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 08 — Map -->
+    <div class="feature-row reversed">
+      <div class="device">
+        <div class="macbook">
+          <div class="macbook-screen">
+            <span class="macbook-camera"></span>
+            <div class="macbook-bezel">
+              <img src="screenshots/visit_desktop.png" alt="Map on desktop" loading="lazy">
+            </div>
+          </div>
+          <div class="macbook-base"></div>
+        </div>
+      </div>
+      <div class="copy">
+        <div class="feature-num">
+          <span>08 / 08</span>
+          <span class="badge both"><span lang="en">Both versions</span><span lang="ru">Обе версии</span></span>
+        </div>
+        <h3 class="feature-title">
+          <span lang="en">Real Google Map — dark themed</span>
+          <span lang="ru">Настоящая Google-карта — тёмная тема</span>
+        </h3>
+        <p class="feature-text">
+          <span lang="en">Embedded Google Maps tinted dark to match the lounge mood, with a pulsing platinum pin. No API key required for the preview — and one button sends the guest into Google Maps for directions, another into Instagram, another straight to a phone call.</span>
+          <span lang="ru">Встроенная Google-карта с тёмным CSS-оверлеем под настроение лаунжа, пульсирующая платиновая метка. API-ключ для превью не нужен — а одна кнопка отправляет гостя в Google Maps за маршрутом, вторая — в Instagram, третья — сразу в звонок.</span>
+        </p>
+        <ul class="feature-bullets">
+          <li><span lang="en"><strong>Hours, address, phone</strong> are clearly marked <code>EDITABLE</code> in code</span><span lang="ru"><strong>Часы, адрес, телефон</strong> чётко помечены <code>EDITABLE</code> в коде</span></li>
+          <li><span lang="en">Single HTML file — works without a server, easy to host anywhere</span><span lang="ru">Один HTML-файл — работает без сервера, легко разместить где угодно</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ TEAM SECTION ============ -->
+<section class="team-section">
+  <div class="container">
+    <div class="team-head">
+      <span class="team-eyebrow">
+        <span lang="en">Behind We2</span>
+        <span lang="ru">За кадром We2</span>
+      </span>
+      <h2>
+        <span lang="en">A small team. Full ownership.</span>
+        <span lang="ru">Маленькая команда. Полная вовлечённость.</span>
+      </h2>
+      <p>
+        <span lang="en">No middlemen, no project managers. You talk directly to the people building your site.</span>
+        <span lang="ru">Без посредников и менеджеров. Вы общаетесь напрямую с теми, кто делает ваш сайт.</span>
+      </p>
+    </div>
+
+    <div class="team-grid">
+
+      <!-- Margarita -->
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="team/margarita.jpg" alt="Margarita — Designer">
+        </div>
+        <div class="team-name">Margarita</div>
+        <div class="team-role">
+          <span lang="en">Designer · New York</span>
+          <span lang="ru">Дизайнер · Нью-Йорк</span>
+        </div>
+        <p class="team-bio">
+          <span lang="en">Crafts the visual language — from the first mood frame to the final polish on every screen.</span>
+          <span lang="ru">Создаёт визуальный язык — от первого мудборда до финальной полировки каждого экрана.</span>
+        </p>
+      </div>
+
+      <!-- Danil -->
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="team/danil.jpg" alt="Danil — Developer">
+        </div>
+        <div class="team-name">Danil</div>
+        <div class="team-role">
+          <span lang="en">Developer · Ukraine</span>
+          <span lang="ru">Разработчик · Украина</span>
+        </div>
+        <p class="team-bio">
+          <span lang="en">Builds it, ships it, makes it fast. Hands-on with every line of code that goes live.</span>
+          <span lang="ru">Собирает, запускает, делает быстрым. Лично участвует в каждой строчке кода.</span>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section style="padding: 4rem 0 1rem; text-align: center;">
+  <div class="container">
+    <h2 style="font-size: clamp(1.5rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem;">
+      <span lang="en">Ready to look around?</span>
+      <span lang="ru">Хотите посмотреть в живую?</span>
+    </h2>
+    <p style="color: var(--text-2); margin-bottom: 1.8rem; max-width: 520px; margin-left: auto; margin-right: auto; font-size: 0.95rem;">
+      <span lang="en">Click around, share with the team, scroll on a phone. We iterate based on what you say.</span>
+      <span lang="ru">Покликайте, покажите команде, полистайте на телефоне. Дальше итерируем по вашим правкам.</span>
+    </p>
+    <a href="./" target="_blank" rel="noopener" class="hero-cta">
+      <span lang="en">Open the live site</span>
+      <span lang="ru">Открыть сайт</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-mark"></span>
+        <span>We2 · Family Studio</span>
+      </div>
+      <div>
+        <span lang="en">Concept v2 · Pricing &amp; revisions on request.</span>
+        <span lang="ru">Концепт v2 · Прайс и доработки — по запросу.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const langToggle = document.getElementById('langToggle');
+  langToggle.querySelectorAll('button').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.langSet;
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      langToggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      langToggle.dataset.active = i;
+    });
+  });
+
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.querySelectorAll('button').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      const theme = btn.dataset.themeSet;
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      themeToggle.dataset.active = i;
+    });
+  });
+</script>
+</body>
+</html>
