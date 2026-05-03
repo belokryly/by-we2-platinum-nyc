@@ -82,12 +82,37 @@
     gap: 1rem;
   }
   [data-theme="light"] .top-bar { background: rgba(247, 247, 249, 0.78); }
-  .top-bar-label {
-    font-size: 0.7rem;
+  .top-bar-cross-nav {
+    display: flex;
+    gap: 0.4rem;
+  }
+  .cross-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.9rem;
+    background: var(--bg-3);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.66rem;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--text-3);
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    transition: background 0.25s, border-color 0.25s, transform 0.2s;
+  }
+  .cross-nav-link:hover {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+    transform: translateY(-1px);
+  }
+  .cross-nav-link svg { flex-shrink: 0; opacity: 0.7; }
+  .cross-nav-link:hover svg { opacity: 1; }
+  @media (max-width: 600px) {
+    .cross-nav-link { padding: 0.4rem 0.7rem; font-size: 0.58rem; gap: 0.35rem; }
+    .cross-nav-link .lbl-long { display: none; }
   }
   .controls { display: flex; gap: 0.5rem; }
   .toggle-group {
@@ -959,79 +984,231 @@
   }
   .modal-success.show { display: block; }
 
-  /* ===== Photo counter widget ===== */
-  .counter-widget {
+  /* ============ PHOTO SLIDER ============ */
+  .photo-widget {
     background: var(--bg-2);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 1.8rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    padding: 2rem;
     margin-bottom: 1rem;
+  }
+  .photo-widget-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.6rem;
     flex-wrap: wrap;
   }
-  .counter-widget .icon-row { display: flex; align-items: center; gap: 0.8rem; flex: 1; min-width: 220px; }
-  .counter-widget .icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
+  .photo-widget .icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
     background: var(--bg-3);
     border: 1px solid var(--border);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .counter-widget h4 {
-    font-size: 1.05rem;
-    font-weight: 800;
-    margin-bottom: 0.2rem;
-  }
-  .counter-widget .desc {
-    font-size: 0.8rem;
-    color: var(--text-2);
-    line-height: 1.45;
-  }
-  .counter-control {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    background: var(--bg-3);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    padding: 0.3rem;
-  }
-  .counter-control button {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    background: var(--bg-2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    cursor: pointer;
+  .photo-widget h4 {
     font-size: 1.1rem;
-    font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s;
-  }
-  .counter-control button:hover { background: var(--bg-elev); }
-  .counter-control button:disabled { opacity: 0.4; cursor: not-allowed; }
-  .counter-control .value {
-    min-width: 32px;
-    text-align: center;
     font-weight: 800;
-    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.01em;
   }
-  .counter-widget .price-tag {
+  .photo-widget .photo-desc {
+    font-size: 0.86rem;
+    color: var(--text-2);
+    line-height: 1.55;
+    flex: 1;
+    min-width: 220px;
+  }
+  .photo-readout {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .photo-readout .count-display {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .photo-readout .count-num {
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .photo-readout .count-label {
     font-size: 0.78rem;
     color: var(--text-2);
     font-weight: 600;
-    margin-left: auto;
+    letter-spacing: 0.06em;
   }
-  .counter-widget .price-tag strong { color: var(--text); font-weight: 800; }
+  .photo-readout .photo-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .photo-readout .photo-price small {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--text-3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-left: 0.4rem;
+  }
+  .photo-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 100px;
+    background: var(--bg-3);
+    outline: none;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    margin: 0.5rem 0 0.3rem;
+  }
+  .photo-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--text);
+    cursor: pointer;
+    border: 4px solid var(--bg-2);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35), 0 0 0 1px var(--border-strong);
+    transition: transform 0.15s;
+  }
+  .photo-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  .photo-slider::-webkit-slider-thumb:active { transform: scale(0.95); }
+  .photo-slider::-moz-range-thumb {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--text);
+    cursor: pointer;
+    border: 4px solid var(--bg-2);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35), 0 0 0 1px var(--border-strong);
+  }
+  .photo-slider-ticks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    padding: 0 4px;
+  }
+  .photo-slider-ticks span {
+    font-size: 0.68rem;
+    color: var(--text-3);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  /* ============ MODAL: SUMMARY OF QUOTE ============ */
+  .modal-quote-summary {
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.3rem;
+    margin-bottom: 1.4rem;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+  .modal-quote-summary .summary-section {
+    margin-bottom: 0.9rem;
+  }
+  .modal-quote-summary .summary-section:last-child { margin-bottom: 0; }
+  .modal-quote-summary .summary-title {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 0.5rem;
+  }
+  .modal-quote-summary .summary-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 0.85rem;
+  }
+  .modal-quote-summary .summary-row:last-child { border-bottom: none; }
+  .modal-quote-summary .summary-row .name {
+    flex: 1;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .modal-quote-summary .summary-row .value {
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .modal-quote-summary .summary-row .remove-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.7rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    padding: 0;
+  }
+  .modal-quote-summary .summary-row .remove-btn:hover {
+    border-color: #FF6B6B;
+    color: #FF6B6B;
+    transform: scale(1.1);
+  }
+  .modal-quote-summary .summary-row .remove-btn[data-locked="true"] {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+  .modal-quote-summary .summary-row .remove-btn[data-locked="true"]:hover {
+    border-color: var(--border);
+    color: var(--text-2);
+    transform: none;
+  }
+  .modal-quote-summary .summary-totals {
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    border-top: 1.5px solid var(--text);
+  }
+  .modal-quote-summary .total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    font-weight: 700;
+    font-size: 0.94rem;
+  }
+  .modal-quote-summary .total-row.recurring {
+    font-size: 0.82rem;
+    color: var(--text-2);
+    font-weight: 600;
+  }
+
 </style>
 </head>
 <body>
 
 <header class="top-bar">
-  <span class="top-bar-label">Pricing block — preview</span>
+  <div class="top-bar-cross-nav">
+    <a href="guide.html" class="cross-nav-link" aria-label="Back to guide">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      <span class="lbl-long"><span lang="en">Guide</span><span lang="ru">Гайд</span></span>
+    </a>
+    <a href="index.html?from=pricing" target="_blank" class="cross-nav-link" aria-label="Open live site">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      <span class="lbl-long"><span lang="en">Live site</span><span lang="ru">Сайт</span></span>
+    </a>
+  </div>
   <div class="controls">
     <div class="toggle-group" data-active="0" id="langToggle">
       <button data-lang-set="en" class="active">EN</button>
@@ -1223,31 +1400,44 @@
       <span class="line"></span>
     </div>
     <p class="section-intro">
-      <span lang="en">If your photos need polish — or you'd like us to shoot something on-brand — pick how many images you'd like done.</span>
-      <span lang="ru">Если ваши фото нужно доработать — или хотите чтобы мы сняли кадр в стилистике — выберите сколько изображений обработать.</span>
+      <span lang="en">If your photos need polish — or you don't have any yet — we'll handle the visuals: retouch what you send us, or design custom branded images, banners, and decorative shots adapted to the site's style.</span>
+      <span lang="ru">Если ваши фото нужно доработать — или их пока нет — мы возьмём это на себя: отретушируем то, что пришлёте, или сделаем кастомные визуалы, баннеры и декоративные изображения в стилистике сайта.</span>
     </p>
 
-    <div class="counter-widget">
-      <div class="icon-row">
+    <div class="photo-widget">
+      <div class="photo-widget-head">
         <div class="icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         </div>
-        <div>
-          <h4><span lang="en">Photo polish or custom shot</span><span lang="ru">Обработка фото или кастомный кадр</span></h4>
-          <span class="desc">
-            <span lang="en">Touch up your photos for the site, or we shoot a new one in your brand style.</span>
-            <span lang="ru">Дорабатываем ваши фото или снимаем кадр в стилистике бренда.</span>
+        <div class="photo-desc">
+          <h4><span lang="en">Photo polish or custom visuals</span><span lang="ru">Обработка фото или кастомные визуалы</span></h4>
+          <span>
+            <span lang="en">Slide to choose how many images you'd like done — retouching of yours, or fresh visuals designed to match the site.</span>
+            <span lang="ru">Перетащите ползунок, чтобы выбрать количество изображений — ретушь ваших или новые визуалы под стиль сайта.</span>
           </span>
         </div>
       </div>
-      <div class="counter-control">
-        <button id="photoMinus" aria-label="Decrease">−</button>
-        <span class="value" id="photoCount">0</span>
-        <button id="photoPlus" aria-label="Increase">+</button>
+
+      <div class="photo-readout">
+        <div class="count-display">
+          <span class="count-num" id="photoCount">0</span>
+          <span class="count-label">
+            <span lang="en"><span id="photoLabel">images</span></span>
+            <span lang="ru"><span id="photoLabelRu">шт</span></span>
+          </span>
+        </div>
+        <div class="photo-price">
+          $<span id="photoPriceTotal">0</span>
+          <small>
+            <span lang="en">$10 / image</span>
+            <span lang="ru">$10 / фото</span>
+          </small>
+        </div>
       </div>
-      <div class="price-tag">
-        <strong>$10</strong>
-        <span lang="en">/ image</span><span lang="ru">/ фото</span>
+
+      <input type="range" min="0" max="20" value="0" step="1" class="photo-slider" id="photoSlider" aria-label="Number of images">
+      <div class="photo-slider-ticks">
+        <span>0</span><span>5</span><span>10</span><span>15</span><span>20</span>
       </div>
     </div>
     <div style="margin-bottom: 5rem;"></div>
@@ -1621,9 +1811,14 @@
       <span lang="ru">Отправьте смету нам</span>
     </h3>
     <p class="modal-sub">
-      <span lang="en">Leave your contact and we'll respond within 24 hours with a final quote and next steps.</span>
-      <span lang="ru">Оставьте контакт — ответим в течение 24 часов с финальной сметой и следующими шагами.</span>
+      <span lang="en">Review your selections below — remove anything you don't need with the × button. Leave your contact and we'll respond within 24 hours.</span>
+      <span lang="ru">Проверьте свои опции ниже — лишнее можно убрать кнопкой ×. Оставьте контакт, ответим в течение 24 часов.</span>
     </p>
+
+    <div class="modal-quote-summary" id="modalQuoteSummary">
+      <!-- filled dynamically by JS -->
+    </div>
+
     <form id="quoteForm">
       <div class="form-row">
         <label for="qName"><span lang="en">Your name</span><span lang="ru">Ваше имя</span></label>
@@ -1734,24 +1929,23 @@
     });
   });
 
-  /* ===== Photo counter ===== */
-  const photoCount = document.getElementById('photoCount');
-  const photoMinus = document.getElementById('photoMinus');
-  const photoPlus = document.getElementById('photoPlus');
+  /* ===== Photo slider ===== */
+  const photoSlider = document.getElementById('photoSlider');
+  const photoCountEl = document.getElementById('photoCount');
+  const photoPriceEl = document.getElementById('photoPriceTotal');
+  const photoLabelEl = document.getElementById('photoLabel');
+  const photoLabelRuEl = document.getElementById('photoLabelRu');
 
   function updatePhotoUI() {
-    photoCount.textContent = state.photoCount;
-    photoMinus.disabled = state.photoCount === 0;
+    photoCountEl.textContent = state.photoCount;
+    photoPriceEl.textContent = (state.photoCount * 10).toLocaleString('en-US');
+    // English plural
+    photoLabelEl.textContent = state.photoCount === 1 ? 'image' : 'images';
+    // Russian plural — 1 фото / 2-4 фото / 5+ фото (всё одинаково по форме множественного "фото")
+    photoLabelRuEl.textContent = 'шт';
   }
-  photoMinus.addEventListener('click', () => {
-    if (state.photoCount > 0) {
-      state.photoCount--;
-      updatePhotoUI();
-      updateQuote();
-    }
-  });
-  photoPlus.addEventListener('click', () => {
-    state.photoCount++;
+  photoSlider.addEventListener('input', () => {
+    state.photoCount = parseInt(photoSlider.value);
     updatePhotoUI();
     updateQuote();
   });
@@ -1780,10 +1974,11 @@
     let oneTimeTotal = 0;
     let monthlyTotal = 0;
 
-    // 1. Site (always)
+    // 1. Site (always — locked, can't remove)
     items.oneTime.push({
       label: getLang() === 'ru' ? 'Сайт (Premium one-page)' : 'Website (Premium one-page)',
       value: 1000,
+      locked: true,
     });
     oneTimeTotal += 1000;
 
@@ -1795,11 +1990,21 @@
       const price = parseFloat(card.dataset.price || 0);
       const monthly = parseFloat(card.dataset.monthly || 0);
       if (price > 0) {
-        items.oneTime.push({ label: getCardLabel(card), value: price });
+        items.oneTime.push({
+          label: getCardLabel(card),
+          value: price,
+          removeKey: 'group:' + group,
+          locked: false,
+        });
         oneTimeTotal += price;
       }
       if (monthly > 0) {
-        items.monthly.push({ label: getCardLabel(card) + (getLang() === 'ru' ? ' (хостинг данных)' : ' (data hosting)'), value: monthly });
+        items.monthly.push({
+          label: getCardLabel(card) + (getLang() === 'ru' ? ' (хостинг данных)' : ' (data hosting)'),
+          value: monthly,
+          removeKey: 'group:' + group,
+          locked: false,
+        });
         monthlyTotal += monthly;
       }
     });
@@ -1810,6 +2015,8 @@
       items.oneTime.push({
         label: (getLang() === 'ru' ? `Обработка фото · ${state.photoCount} шт` : `Photo polish · ${state.photoCount} ${state.photoCount === 1 ? 'image' : 'images'}`),
         value: total,
+        removeKey: 'photos',
+        locked: false,
       });
       oneTimeTotal += total;
     }
@@ -1824,6 +2031,8 @@
           label: getCardLabel(card),
           value: price,
           period,
+          removeKey: 'group:care',
+          locked: false,
         });
         // Don't add to monthlyTotal as a single number — it's a recurring; we show care separately
       }
@@ -1897,7 +2106,97 @@
     bd.innerHTML = html;
   }
 
-  /* ===== Quote bar expand/collapse ===== */
+  /* ===== Render summary inside modal (with removable rows) ===== */
+  function renderModalSummary() {
+    const { items, oneTimeTotal, monthlyTotal } = computeQuote();
+    const lang = getLang();
+    const container = document.getElementById('modalQuoteSummary');
+
+    let html = '';
+
+    // One-time
+    if (items.oneTime.length) {
+      html += `<div class="summary-section">
+        <div class="summary-title">${lang === 'ru' ? 'Разовые платежи' : 'One-time'}</div>`;
+      items.oneTime.forEach(it => {
+        const locked = it.locked ? 'true' : 'false';
+        html += `<div class="summary-row">
+          <button type="button" class="remove-btn" data-locked="${locked}" data-remove="${it.removeKey || ''}" aria-label="Remove">×</button>
+          <span class="name">${it.label}</span>
+          <span class="value">$${it.value.toLocaleString()}</span>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    // Recurring
+    if (items.monthly.length) {
+      html += `<div class="summary-section">
+        <div class="summary-title">${lang === 'ru' ? 'Регулярные платежи' : 'Recurring'}</div>`;
+      items.monthly.forEach(it => {
+        const period = it.period || (lang === 'ru' ? '/мес' : '/mo');
+        html += `<div class="summary-row">
+          <button type="button" class="remove-btn" data-locked="${it.locked ? 'true' : 'false'}" data-remove="${it.removeKey || ''}" aria-label="Remove">×</button>
+          <span class="name">${it.label}</span>
+          <span class="value">$${it.value}${period}</span>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
+    // Totals
+    html += `<div class="summary-totals">
+      <div class="total-row">
+        <span>${lang === 'ru' ? 'Итого разово' : 'Total one-time'}</span>
+        <span>$${oneTimeTotal.toLocaleString()}</span>
+      </div>`;
+    if (items.monthly.length) {
+      const monthlyParts = items.monthly.map(it => `$${it.value}${it.period || (lang === 'ru' ? '/мес' : '/mo')}`).join(' + ');
+      html += `<div class="total-row recurring">
+        <span>${lang === 'ru' ? 'Регулярно' : 'Recurring'}</span>
+        <span>${monthlyParts}</span>
+      </div>`;
+    }
+    html += `</div>`;
+
+    container.innerHTML = html;
+
+    // Wire up remove buttons
+    container.querySelectorAll('.remove-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.locked === 'true') return;
+        const key = btn.dataset.remove;
+        if (!key) return;
+        removeItem(key);
+        renderModalSummary();
+      });
+    });
+  }
+
+  /* ===== Remove a quote line item by key ===== */
+  function removeItem(key) {
+    if (key === 'photos') {
+      state.photoCount = 0;
+      photoSlider.value = 0;
+      updatePhotoUI();
+    } else if (key.startsWith('group:')) {
+      // remove a mutex/optional selection
+      const group = key.substring(6);
+      // For hosting we can't remove (it's required) — but we'll fall back to default
+      if (group === 'hosting') {
+        // Reset to default free hosting
+        document.querySelectorAll('[data-group="hosting"] .opt-card').forEach(c => c.classList.remove('selected'));
+        const defaultCard = document.querySelector('[data-id="host-we2"]');
+        if (defaultCard) defaultCard.classList.add('selected');
+        state.selections.hosting = 'host-we2';
+      } else {
+        // Deselect that group entirely
+        document.querySelectorAll(`[data-group="${group}"] .opt-card, [data-group="${group}"] .care-card`).forEach(c => c.classList.remove('selected'));
+        delete state.selections[group];
+      }
+    }
+    updateQuote();
+  }
   const quoteBar = document.getElementById('quoteBar');
   document.getElementById('expandBtn').addEventListener('click', () => {
     quoteBar.classList.toggle('expanded');
@@ -1910,7 +2209,11 @@
      MODAL & SEND
   ============================================================ */
   const modal = document.getElementById('modal');
-  function openModal() { modal.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function openModal() {
+    renderModalSummary();
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
   function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
   document.getElementById('sendBtnTop').addEventListener('click', openModal);
   document.getElementById('sendBtnBottom').addEventListener('click', openModal);

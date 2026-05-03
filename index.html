@@ -1344,9 +1344,96 @@
     .menu-item-name { font-size: 1.05rem; }
     .pill { font-size: 0.6rem; }
   }
+
+  /* ============ CROSS-PAGE NAV (shown when arriving from guide/pricing) ============ */
+  .cross-nav-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: rgba(10, 11, 13, 0.92);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(232, 233, 236, 0.08);
+    padding: 0.55rem 1rem;
+    display: none; /* hidden by default — shown via JS based on referrer */
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transform: translateY(-100%);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .cross-nav-top.show {
+    display: flex;
+    transform: translateY(0);
+  }
+  body.cross-nav-active .header { top: 44px; }
+  body.cross-nav-active { padding-top: 44px; }
+  .cross-nav-top a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.95rem;
+    color: #FDFCF0;
+    text-decoration: none;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    border: 1px solid rgba(232, 233, 236, 0.18);
+    transition: background 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .cross-nav-top a:hover {
+    background: #E8E9EC;
+    color: #0A0B0D;
+    border-color: #E8E9EC;
+  }
+  .cross-nav-top a svg { flex-shrink: 0; opacity: 0.7; }
+  .cross-nav-top a:hover svg { opacity: 1; }
+  .cross-nav-top .label-tiny {
+    font-size: 0.56rem;
+    color: rgba(253, 252, 240, 0.5);
+    letter-spacing: 0.18em;
+    margin-right: 0.5rem;
+    font-weight: 600;
+  }
+  @media (max-width: 600px) {
+    .cross-nav-top { padding: 0.45rem 0.6rem; gap: 0.3rem; }
+    .cross-nav-top a { padding: 0.4rem 0.7rem; font-size: 0.55rem; letter-spacing: 0.12em; }
+    .cross-nav-top .label-tiny { display: none; }
+  }
 </style>
 </head>
 <body>
+
+<!-- Cross-nav (shows only if user arrived from guide.html or pricing.html) -->
+<nav class="cross-nav-top" id="crossNavTop" aria-label="Page navigation">
+  <span class="label-tiny">Concept review</span>
+  <a href="guide.html">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    <span>Guide</span>
+  </a>
+  <a href="pricing.html">
+    <span>Pricing</span>
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+</nav>
+
+<script>
+  // Show cross-nav if user came from guide.html or pricing.html
+  (function() {
+    const ref = document.referrer || '';
+    const params = new URLSearchParams(window.location.search);
+    const fromGuide = /guide\.html|pricing\.html/.test(ref) || params.get('from') === 'guide' || params.get('from') === 'pricing';
+    if (fromGuide) {
+      const nav = document.getElementById('crossNavTop');
+      nav.classList.add('show');
+      document.body.classList.add('cross-nav-active');
+    }
+  })();
+</script>
 
 <!-- Custom cursor (desktop only) -->
 <div class="cursor-vinyl" id="cursorVinyl">
