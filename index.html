@@ -186,19 +186,27 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    padding: 1.4rem 2.5rem;
+    padding: 1.2rem 2.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    background: transparent;
+    /* Solid bg by default so backdrops never bleed through */
+    background: rgba(8, 8, 10, 0.78);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
   .header.scrolled {
-    padding: 0.9rem 2.5rem;
-    background: rgba(8, 8, 10, 0.7);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    padding: 0.75rem 2.5rem;
+    background: rgba(8, 8, 10, 0.92);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
     border-bottom: 1px solid var(--line);
+  }
+  .header-cta {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
   }
   .logo {
     font-family: 'Playfair Display', serif;
@@ -212,6 +220,7 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: shimmer 6s linear infinite;
+    text-decoration: none;
   }
   @keyframes shimmer {
     0% { background-position: 200% 0; }
@@ -230,20 +239,91 @@
     transition: opacity 0.3s, color 0.3s;
     position: relative;
   }
-  .nav a:hover { opacity: 1; color: var(--gold); }
+  .nav a:hover { opacity: 1; color: var(--platinum); }
   .nav a::after {
     content: '';
     position: absolute;
     bottom: -6px; left: 0;
     width: 0; height: 1px;
-    background: var(--gold);
+    background: var(--platinum);
     transition: width 0.3s ease;
   }
   .nav a:hover::after { width: 100%; }
+
+  /* ===== HEADER-VIBE (mobile compact play button in header) ===== */
+  .header-vibe {
+    display: none;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.85rem 0.4rem 0.4rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .header-vibe-circle {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--platinum-soft) 0%, var(--platinum) 50%, var(--platinum-deep) 100%);
+    color: #0A0A0B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+  }
+  .header-vibe-circle svg { width: 11px; height: 11px; }
+  .header-vibe-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--platinum);
+    white-space: nowrap;
+  }
+  .header-vibe.playing {
+    border-color: var(--platinum);
+    box-shadow: 0 0 16px rgba(232, 233, 236, 0.4);
+  }
+  .header-vibe.playing .header-vibe-text { color: var(--platinum-soft); }
+
+  /* ===== MOBILE BURGER ===== */
+  .mobile-toggle {
+    display: none;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line-strong);
+    color: var(--platinum);
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: 0;
+    transition: all 0.3s;
+  }
+  .mobile-toggle:hover {
+    background: var(--platinum);
+    color: #0A0A0B;
+  }
+  .mobile-toggle svg { flex-shrink: 0; }
+
   @media (max-width: 900px) {
     .nav { display: none; }
-    .header { padding: 1rem 1.25rem; }
-    .header.scrolled { padding: 0.7rem 1.25rem; }
+    .header { padding: 0.85rem 1.25rem; }
+    .header.scrolled { padding: 0.65rem 1.25rem; }
+    .header > .btn-gold { display: none; } /* hide Reserve button on mobile */
+    .header-vibe { display: inline-flex; }
+    .mobile-toggle { display: inline-flex; }
   }
 
   /* Buttons */
@@ -409,6 +489,336 @@
     gap: 1.2rem;
     margin-top: 1rem;
   }
+  /* Hide inline hero vibe-row on mobile — replaced by header-vibe button */
+  @media (max-width: 700px) {
+    .vibe-row { display: none; }
+  }
+
+  /* ===== FLOATING VIBE PANEL (desktop, fixed below header) ===== */
+  .vibe-floating {
+    position: fixed;
+    /* Sits below header (~76px). After scroll header shrinks to ~64px. */
+    top: 92px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 95;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.45rem 1.15rem 0.45rem 0.45rem;
+    background: rgba(8,8,10,0.78);
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    box-shadow: 0 12px 30px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03) inset;
+    transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s, opacity 0.4s, box-shadow 0.4s, border-color 0.4s;
+    width: max-content;
+    max-width: calc(100vw - 2rem);
+  }
+  body.has-scrolled .vibe-floating { top: 76px; }
+  .vibe-floating.playing {
+    border-color: var(--platinum);
+    box-shadow: 0 0 30px -6px rgba(232, 233, 236, 0.4), 0 12px 30px -8px rgba(0,0,0,0.6);
+  }
+  .vibe-floating .vibe-btn-floating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 1rem;
+    background: linear-gradient(135deg, var(--platinum-soft) 0%, var(--platinum) 50%, var(--platinum-deep) 100%);
+    border: none;
+    color: #0A0A0B;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 4px 14px -4px rgba(232, 233, 236, 0.5);
+  }
+  .vibe-floating .vibe-btn-floating svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+  .vibe-floating .vibe-btn-floating:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px -4px rgba(232, 233, 236, 0.6);
+  }
+  .vibe-floating .vibe-label-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  /* Hide floating vibe on mobile — header-vibe takes over */
+  @media (max-width: 900px) {
+    .vibe-floating { display: none; }
+  }
+
+  /* ===== MOBILE MENU — premium slide-in panel from right ===== */
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 8, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 110;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .mobile-menu-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .mobile-menu {
+    position: fixed;
+    top: 0; right: 0;
+    width: min(82vw, 340px);
+    height: 100dvh;
+    max-height: 100vh;
+    background: linear-gradient(180deg, #14151A 0%, #0A0B0D 100%);
+    border-left: 1px solid var(--line-strong);
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.7);
+    z-index: 120;
+    padding: 1.4rem 1.5rem 2rem;
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .mobile-menu.open { transform: translateX(0); }
+
+  /* Decorative platinum accents inside the panel */
+  .mobile-menu::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--platinum), transparent);
+    box-shadow: 0 0 14px rgba(232, 233, 236, 0.5);
+    pointer-events: none;
+  }
+  .mobile-menu::after {
+    content: '';
+    position: absolute;
+    bottom: 30%;
+    left: -40%;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(191, 200, 214, 0.12), transparent 70%);
+    filter: blur(28px);
+    pointer-events: none;
+  }
+
+  .mobile-menu-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.6rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    z-index: 2;
+    gap: 0.8rem;
+  }
+  .mobile-menu-brand {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
+  }
+  .mobile-menu-logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    color: var(--text);
+    background: linear-gradient(110deg, #8A8E96 0%, #E8E9EC 30%, #FFFFFF 50%, #E8E9EC 70%, #8A8E96 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 6s linear infinite;
+    text-transform: uppercase;
+  }
+  .mobile-menu-logo-tag {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.32em;
+    color: var(--platinum-blue);
+    margin-top: 6px;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+  .mobile-menu-close {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 50%;
+    background: rgba(232, 233, 236, 0.06);
+    border: 1px solid var(--platinum);
+    color: var(--platinum);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+  .mobile-menu-close:hover {
+    background: var(--platinum);
+    color: #0A0A0B;
+    box-shadow: 0 0 16px rgba(232, 233, 236, 0.55);
+    transform: rotate(90deg);
+  }
+
+  .mobile-menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    position: relative;
+    z-index: 2;
+    flex-grow: 1;
+  }
+  .mobile-menu-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1.05rem 0.4rem;
+    color: var(--text);
+    text-decoration: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--line);
+    transition: all 0.3s;
+    position: relative;
+    opacity: 0;
+    transform: translateX(20px);
+    cursor: pointer;
+  }
+  .mobile-menu-nav a em {
+    font-style: italic;
+    color: var(--platinum-blue);
+  }
+  .mobile-menu.open .mobile-menu-nav a {
+    animation: navItemIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  .mobile-menu.open .mobile-menu-nav a:nth-child(1) { animation-delay: 0.10s; }
+  .mobile-menu.open .mobile-menu-nav a:nth-child(2) { animation-delay: 0.16s; }
+  .mobile-menu.open .mobile-menu-nav a:nth-child(3) { animation-delay: 0.22s; }
+  .mobile-menu.open .mobile-menu-nav a:nth-child(4) { animation-delay: 0.28s; }
+  .mobile-menu.open .mobile-menu-nav a:nth-child(5) { animation-delay: 0.34s; }
+  .mobile-menu.open .mobile-menu-nav a:nth-child(6) { animation-delay: 0.40s; }
+  @keyframes navItemIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .mobile-menu-nav a::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--platinum);
+    box-shadow: 0 0 10px rgba(232, 233, 236, 0.7);
+    flex-shrink: 0;
+    opacity: 0.4;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .mobile-menu-nav a:hover {
+    color: var(--platinum-soft);
+    text-shadow: 0 0 8px rgba(232, 233, 236, 0.35);
+    padding-left: 0.9rem;
+  }
+  .mobile-menu-nav a:hover::before {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+  .mobile-menu-nav a .menu-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    margin-left: auto;
+    transition: color 0.3s;
+    font-weight: 300;
+  }
+  .mobile-menu-nav a:hover .menu-num { color: var(--platinum); }
+
+  .mobile-menu-foot {
+    margin-top: 1.4rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    position: relative;
+    z-index: 2;
+  }
+  .mobile-menu-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    background: linear-gradient(180deg, #F4F5F7 0%, #E8E9EC 50%, #8A8E96 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .mobile-menu-phone svg {
+    width: 16px;
+    height: 16px;
+    color: var(--platinum);
+    flex-shrink: 0;
+  }
+  .mobile-menu-ig {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 400;
+    letter-spacing: 0.24em;
+    color: var(--text);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .mobile-menu-ig svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: var(--platinum);
+    transition: transform 0.3s;
+  }
+  .mobile-menu-ig:hover { color: var(--platinum); }
+  .mobile-menu-ig:hover svg { transform: scale(1.1); }
+  .mobile-menu-address {
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .mobile-menu-address strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Lock body scroll when menu is open */
+  body.menu-open { overflow: hidden; }
   .vibe-btn {
     display: inline-flex;
     align-items: center;
@@ -1260,12 +1670,23 @@
     position: fixed;
     bottom: 0; left: 0; right: 0;
     z-index: 90;
-    background: rgba(8, 8, 10, 0.95);
-    backdrop-filter: blur(20px);
+    background: rgba(8, 8, 10, 0.96);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
     border-top: 1px solid var(--line-strong);
-    padding: 0.7rem 1rem;
-    grid-template-columns: 1fr 1fr 1fr;
+    padding: 0.7rem 0.9rem calc(0.7rem + env(safe-area-inset-bottom, 0px));
+    grid-template-columns: 1fr 1.4fr 1fr;
     gap: 0.5rem;
+    /* Hidden by default — slides up after user scrolls past hero CTAs */
+    transform: translateY(120%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease;
+  }
+  body.show-mobile-bar .mobile-bar {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
   }
   .mobile-bar a {
     display: flex;
@@ -1276,22 +1697,34 @@
     padding: 0.6rem 0.4rem;
     text-decoration: none;
     color: var(--text);
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     border: 1px solid var(--line);
+    border-radius: 4px;
     transition: all 0.3s;
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .mobile-bar a svg {
+    color: var(--platinum);
+    flex-shrink: 0;
   }
   .mobile-bar a.primary {
-    background: var(--gold);
+    background: linear-gradient(135deg, var(--platinum-soft) 0%, var(--platinum) 50%, var(--platinum-deep) 100%);
     color: #0A0A0B;
-    border-color: var(--gold);
+    border-color: var(--platinum);
+    box-shadow: 0 0 18px rgba(232, 233, 236, 0.35);
+    flex-direction: row;
     font-weight: 600;
+    letter-spacing: 0.22em;
   }
+  .mobile-bar a.primary svg { color: #0A0A0B; }
   .mobile-bar a:active { transform: scale(0.96); }
   @media (max-width: 700px) {
     .mobile-bar { display: grid; }
-    body { padding-bottom: 70px; }
+    /* Reserve space only when bar is visible (no extra space at hero) */
+    body.show-mobile-bar { padding-bottom: 76px; }
     section.block { padding: 5rem 1.25rem; }
     .hero { padding: 7rem 1.25rem 5rem; min-height: 90vh; }
     .booking-form { padding: 1.8rem 1.4rem; }
@@ -1452,8 +1885,62 @@
     <a href="#gallery">Gallery</a>
     <a href="#visit">Visit</a>
   </nav>
-  <a href="#events" class="btn btn-gold" style="padding: 0.8rem 1.4rem; font-size: 0.7rem;">Reserve</a>
+  <div class="header-cta">
+    <a href="#events" class="btn btn-gold" style="padding: 0.8rem 1.4rem; font-size: 0.7rem;">Reserve</a>
+    <!-- Mobile-only compact Vibe button (replaces Reserve on small screens) -->
+    <button class="header-vibe" id="headerVibeBtn" aria-label="Play the Vibe">
+      <span class="header-vibe-circle">
+        <svg id="headerVibeIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span class="header-vibe-text" id="headerVibeText">Play Vibe</span>
+    </button>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
 </header>
+
+<!-- ===== FLOATING VIBE PANEL (desktop, fixed below header) ===== -->
+<div class="vibe-floating" id="vibeFloating">
+  <button class="vibe-btn-floating" id="vibeFloatingBtn">
+    <svg id="vibeFloatingIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <span id="vibeFloatingLabel">Play the Vibe</span>
+  </button>
+  <span class="vibe-label-text">Club Lights</span>
+</div>
+
+<!-- ===== MOBILE MENU — premium slide-in panel ===== -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" aria-hidden="true"></div>
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-brand">
+      <span class="mobile-menu-logo-name">Platinum NYC</span>
+      <span class="mobile-menu-logo-tag">Karaoke · Bar · Kitchen</span>
+    </span>
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-menu-nav" aria-label="Site navigation">
+    <a href="#top" data-mobile-link>Home <span class="menu-num">01</span></a>
+    <a href="#experience" data-mobile-link><em>Experience</em> <span class="menu-num">02</span></a>
+    <a href="#menu" data-mobile-link>Menu <span class="menu-num">03</span></a>
+    <a href="#events" data-mobile-link>Events <span class="menu-num">04</span></a>
+    <a href="#gallery" data-mobile-link>Gallery <span class="menu-num">05</span></a>
+    <a href="#visit" data-mobile-link>Visit <span class="menu-num">06</span></a>
+  </nav>
+  <div class="mobile-menu-foot">
+    <a href="tel:9297331310" class="mobile-menu-phone">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+      929-733-1310
+    </a>
+    <a href="https://instagram.com/" target="_blank" rel="noopener" class="mobile-menu-ig">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      <span>Instagram</span>
+    </a>
+    <p class="mobile-menu-address">Brooklyn, NY<br/><strong>Open 5 PM – Late · 7 Days</strong></p>
+  </div>
+</aside>
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" id="top">
@@ -1841,11 +2328,52 @@
   }
   document.querySelectorAll('.gallery-img, .exp-card-img').forEach(verifyImage);
 
-  // ---------- Header scroll state ----------
+  // ---------- Header scroll state + mobile-bar visibility ----------
   const header = document.getElementById('header');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) header.classList.add('scrolled');
-    else header.classList.remove('scrolled');
+  function updateScrollState() {
+    const y = window.scrollY;
+    const scrolled = y > 40;
+    header.classList.toggle('scrolled', scrolled);
+    document.body.classList.toggle('has-scrolled', scrolled);
+    // Mobile bar: appear after user scrolled past hero CTAs (~70% of viewport)
+    const threshold = Math.max(window.innerHeight * 0.7, 500);
+    document.body.classList.toggle('show-mobile-bar', y > threshold);
+  }
+  window.addEventListener('scroll', updateScrollState, { passive: true });
+  updateScrollState();
+
+  // ---------- MOBILE MENU (premium slide-in panel) ----------
+  const mobileToggle = document.getElementById('mobileToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+  function openMobileMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.add('open');
+    mobileMenuOverlay.classList.add('open');
+    document.body.classList.add('menu-open');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    mobileMenuOverlay.setAttribute('aria-hidden', 'false');
+  }
+  function closeMobileMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.remove('open');
+    mobileMenuOverlay.classList.remove('open');
+    document.body.classList.remove('menu-open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    mobileMenuOverlay.setAttribute('aria-hidden', 'true');
+  }
+
+  if (mobileToggle) mobileToggle.addEventListener('click', openMobileMenu);
+  if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
+  if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('open')) closeMobileMenu();
+  });
+  // Close menu when user taps a nav link (smooth-scroll then dismiss)
+  document.querySelectorAll('[data-mobile-link]').forEach(a => {
+    a.addEventListener('click', () => setTimeout(closeMobileMenu, 100));
   });
 
   // ---------- Hero parallax ----------
@@ -1899,6 +2427,14 @@
   const vibeLabel = document.getElementById('vibeLabel');
   const vibeIcon = document.getElementById('vibeIcon');
   const eq = document.getElementById('eq');
+  // Header (mobile) and Floating (desktop) vibe button refs
+  const headerVibeBtn = document.getElementById('headerVibeBtn');
+  const headerVibeIcon = document.getElementById('headerVibeIcon');
+  const headerVibeText = document.getElementById('headerVibeText');
+  const vibeFloating = document.getElementById('vibeFloating');
+  const vibeFloatingBtn = document.getElementById('vibeFloatingBtn');
+  const vibeFloatingIcon = document.getElementById('vibeFloatingIcon');
+  const vibeFloatingLabel = document.getElementById('vibeFloatingLabel');
 
   // Reusable SVG content for play/pause states
   const PLAY_SVG = '<polygon points="6 4 20 12 6 20 6 4"></polygon>';
@@ -2086,14 +2622,20 @@
     return setInterval(tick, 100);
   }
 
-  vibeBtn.addEventListener('click', async () => {
+  async function togglePlay() {
     playing = !playing;
     vibeBtn.classList.toggle('playing', playing);
     eq.classList.toggle('playing', playing);
+    if (headerVibeBtn) headerVibeBtn.classList.toggle('playing', playing);
+    if (vibeFloating) vibeFloating.classList.toggle('playing', playing);
 
     if (playing) {
       vibeLabel.textContent = 'Vibe Playing';
       vibeIcon.innerHTML = PAUSE_SVG;
+      if (headerVibeIcon) headerVibeIcon.innerHTML = PAUSE_SVG;
+      if (headerVibeText) headerVibeText.textContent = 'Vibe On';
+      if (vibeFloatingIcon) vibeFloatingIcon.innerHTML = PAUSE_SVG;
+      if (vibeFloatingLabel) vibeFloatingLabel.textContent = 'Vibe Playing';
 
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -2106,6 +2648,10 @@
     } else {
       vibeLabel.textContent = 'Play the Vibe';
       vibeIcon.innerHTML = PLAY_SVG;
+      if (headerVibeIcon) headerVibeIcon.innerHTML = PLAY_SVG;
+      if (headerVibeText) headerVibeText.textContent = 'Play Vibe';
+      if (vibeFloatingIcon) vibeFloatingIcon.innerHTML = PLAY_SVG;
+      if (vibeFloatingLabel) vibeFloatingLabel.textContent = 'Play the Vibe';
 
       // Smooth fade-out, then stop scheduler
       if (audioCtx && masterGainNode) {
@@ -2118,7 +2664,11 @@
         beatScheduler = null;
       }
     }
-  });
+  }
+
+  vibeBtn.addEventListener('click', togglePlay);
+  if (headerVibeBtn) headerVibeBtn.addEventListener('click', togglePlay);
+  if (vibeFloatingBtn) vibeFloatingBtn.addEventListener('click', togglePlay);
 
   /* HOW_TO_REPLACE_AUDIO ===================================================
      OPTION A — Use your own MP3 / WAV file (recommended for production):
