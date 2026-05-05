@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no" />
 <title>Platinum NYC — Karaoke Lounge · Bar · Kitchen · Brooklyn</title>
 <meta name="description" content="A premium karaoke lounge, bar & kitchen in Brooklyn. Private nights, birthdays, celebrations." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -321,7 +322,7 @@
     .nav { display: none; }
     .header { padding: 0.85rem 1.25rem; }
     .header.scrolled { padding: 0.65rem 1.25rem; }
-    .header > .btn-gold { display: none; } /* hide Reserve button on mobile */
+    .header-cta > .btn-gold { display: none; } /* hide Reserve button on mobile entirely */
     .header-vibe { display: inline-flex; }
     .mobile-toggle { display: inline-flex; }
   }
@@ -1492,6 +1493,17 @@
     font-size: 1.55rem;
     color: var(--text);
   }
+  .visit-phone {
+    text-decoration: none;
+    background: linear-gradient(110deg, #8A8E96 0%, #E8E9EC 30%, #FFFFFF 50%, #E8E9EC 70%, #8A8E96 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--text);
+    transition: opacity 0.25s;
+  }
+  .visit-phone:hover { opacity: 0.85; }
   .visit-buttons { display: flex; flex-wrap: wrap; gap: 0.8rem; }
   .visit-buttons .btn { padding: 0.85rem 1.4rem; font-size: 0.7rem; }
 
@@ -1599,6 +1611,194 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
+  }
+
+  /* ===== LEGAL / DESIGN COPYRIGHT BLOCK (Platinum-themed) ===== */
+  .legal-block {
+    max-width: 1280px;
+    margin: 4rem auto 2.5rem;
+    padding: 2.5rem 2rem;
+    background:
+      radial-gradient(ellipse at top, rgba(232, 233, 236, 0.05) 0%, transparent 60%),
+      linear-gradient(135deg, rgba(232, 233, 236, 0.04), rgba(191, 200, 214, 0.025));
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    position: relative;
+  }
+  .legal-block::before, .legal-block::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    left: 5%; right: 5%;
+  }
+  .legal-block::before {
+    top: 0;
+    background: linear-gradient(90deg, transparent, var(--platinum), transparent);
+    box-shadow: 0 0 10px rgba(232, 233, 236, 0.45);
+  }
+  .legal-block::after {
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, var(--platinum-blue), transparent);
+    box-shadow: 0 0 10px rgba(191, 200, 214, 0.35);
+  }
+
+  .legal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.4rem 0.95rem;
+    background: rgba(232, 233, 236, 0.08);
+    border: 1px solid var(--platinum);
+    border-radius: 100px;
+    margin-bottom: 1.4rem;
+    box-shadow: 0 0 16px rgba(232, 233, 236, 0.18);
+  }
+  .legal-badge-pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--platinum);
+    box-shadow: 0 0 6px var(--platinum), 0 0 12px rgba(232, 233, 236, 0.5);
+    animation: legal-pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes legal-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+  .legal-badge-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--platinum);
+    text-shadow: 0 0 8px rgba(232, 233, 236, 0.35);
+  }
+
+  .legal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.01em;
+    font-weight: 500;
+  }
+  .legal-studio {
+    background: linear-gradient(180deg, #F4F5F7 0%, #E8E9EC 50%, #8A8E96 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+    font-weight: 600;
+  }
+  .legal-for {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-style: italic;
+    font-size: 0.45em;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 0.5rem;
+  }
+  .legal-for em {
+    font-style: normal;
+    color: var(--platinum-soft);
+  }
+
+  .legal-text {
+    color: var(--text);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    max-width: 880px;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+  }
+  .legal-text strong {
+    color: var(--platinum);
+    font-weight: 600;
+    text-shadow: 0 0 6px rgba(232, 233, 236, 0.25);
+  }
+
+  .legal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 700px) { .legal-grid { grid-template-columns: 1fr; } }
+
+  .legal-item {
+    padding: 1.2rem 1.3rem;
+    background: rgba(10, 11, 13, 0.55);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  }
+  .legal-item:hover {
+    border-color: var(--line-strong);
+    box-shadow: 0 0 16px rgba(232, 233, 236, 0.10);
+    transform: translateY(-2px);
+  }
+  .legal-item-head {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.7rem;
+    color: var(--platinum);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(232, 233, 236, 0.25);
+  }
+  .legal-item-head svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 4px rgba(232, 233, 236, 0.4));
+  }
+  .legal-item-head em {
+    font-style: italic;
+    color: var(--platinum-blue);
+    text-shadow: 0 0 6px rgba(191, 200, 214, 0.4);
+  }
+  .legal-item p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .legal-item p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .legal-fineprint {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.72rem;
+    line-height: 1.65;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+  .legal-fineprint a {
+    color: var(--platinum);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .legal-fineprint a:hover { color: var(--platinum-soft); }
+
+  @media (max-width: 600px) {
+    .legal-block {
+      padding: 1.8rem 1.3rem;
+      margin: 3rem auto 2rem;
+    }
+    .legal-text { font-size: 0.86rem; }
+    .legal-item { padding: 1rem 1.1rem; }
+    .legal-item p { font-size: 0.8rem; }
   }
 
   /* ===== Footer ===== */
@@ -1803,6 +2003,24 @@
   }
   body.cross-nav-active .header { top: 44px; }
   body.cross-nav-active { padding-top: 44px; }
+
+  /* When the back-to-guide bar is visible, push the mobile menu and overlay below it
+     so the menu's top doesn't get cut off by the bar. */
+  body.cross-nav-active .mobile-menu {
+    top: 44px;
+    height: calc(100dvh - 44px);
+    max-height: calc(100vh - 44px);
+  }
+  body.cross-nav-active .mobile-menu-overlay {
+    top: 44px;
+  }
+  /* Vibe floating also shifts down so it doesn't sit under the back-bar */
+  body.cross-nav-active .vibe-floating {
+    top: 136px;
+  }
+  body.cross-nav-active.has-scrolled .vibe-floating {
+    top: 120px;
+  }
   .cross-nav-top a {
     display: inline-flex;
     align-items: center;
@@ -1841,25 +2059,21 @@
 </head>
 <body>
 
-<!-- Cross-nav (shows only if user arrived from guide.html or pricing.html) -->
+<!-- Cross-nav (shows only if user arrived from guide.html) -->
 <nav class="cross-nav-top" id="crossNavTop" aria-label="Page navigation">
   <span class="label-tiny">Concept review</span>
   <a href="guide.html">
     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-    <span>Guide</span>
-  </a>
-  <a href="pricing.html">
-    <span>Pricing</span>
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    <span>Back to Guide</span>
   </a>
 </nav>
 
 <script>
-  // Show cross-nav if user came from guide.html or pricing.html
+  // Show cross-nav if user came from guide.html
   (function() {
     const ref = document.referrer || '';
     const params = new URLSearchParams(window.location.search);
-    const fromGuide = /guide\.html|pricing\.html/.test(ref) || params.get('from') === 'guide' || params.get('from') === 'pricing';
+    const fromGuide = /guide\.html/.test(ref) || params.get('from') === 'guide';
     if (fromGuide) {
       const nav = document.getElementById('crossNavTop');
       nav.classList.add('show');
@@ -2221,7 +2435,7 @@
         </div>
         <div class="visit-info-block">
           <span class="label-muted">Reservations <!-- EDITABLE --></span>
-          <p>929-733-1310</p>
+          <p><a href="tel:9297331310" class="visit-phone">929-733-1310</a></p>
         </div>
 
         <div class="visit-buttons">
@@ -2285,8 +2499,56 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 Platinum NYC · All rights reserved.</span>
-    <span><em>Website concept preview — content and details can be adjusted after client approval.</em></span>
+    <span>© <span id="copyYear">2026</span> Platinum NYC · All rights reserved.</span>
+    <span><em>Brooklyn · New York</em></span>
+  </div>
+
+  <!-- ========= Design Preview / Legal block (wetwo.studio) ========= -->
+  <div class="legal-block">
+    <div class="legal-badge">
+      <span class="legal-badge-pulse"></span>
+      <span class="legal-badge-label">Design Preview · Concept Demo</span>
+    </div>
+    <h5 class="legal-title">
+      A design proposal by <span class="legal-studio">wetwo.studio</span>
+      <span class="legal-for">for <em>Platinum NYC</em></span>
+    </h5>
+    <p class="legal-text">
+      This website is an <strong>unsolicited design concept</strong> created by <strong>wetwo.studio</strong> for the team behind Platinum NYC. It is shared as a private preview for review purposes only — not deployed to production. The cost of this design is included in the final website package should the client choose to commission us for the full build.
+    </p>
+    <div class="legal-grid">
+      <div class="legal-item">
+        <div class="legal-item-head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Ownership of Design</span>
+        </div>
+        <p>All original design work — including layout, visual system, color palette, typography, illustrations, animations, custom components, source code, and creative concept — is the exclusive property of <strong>wetwo.studio</strong> and is protected under U.S. copyright law (17 U.S.C. § 102) and applicable international treaties.</p>
+      </div>
+      <div class="legal-item">
+        <div class="legal-item-head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Transfer of Rights</span>
+        </div>
+        <p>Full rights to the design and source code are transferred to <strong>Platinum NYC</strong> only upon execution of a signed agreement and full payment for the website package. Until that point, all rights — including reproduction, modification, derivative works and distribution — remain with wetwo.studio.</p>
+      </div>
+      <div class="legal-item">
+        <div class="legal-item-head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+          <span>What Is <em>Not</em> Permitted</span>
+        </div>
+        <p>This preview may not be copied, reproduced, redistributed, modified, or used as the basis for derivative works by any third party — including other developers, agencies, or design studios. Implementation of this design or any of its substantial elements by another party without written authorization from wetwo.studio constitutes copyright infringement under <strong>17 U.S.C. § 501</strong> and the Digital Millennium Copyright Act (DMCA, 17 U.S.C. § 1201).</p>
+      </div>
+      <div class="legal-item">
+        <div class="legal-item-head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Photography & Trademarks</span>
+        </div>
+        <p>Photography of Platinum NYC's venue, food, drinks, signage and any related trademarks, name and brand identity remain the property of Platinum NYC and are used here solely for the purpose of this concept presentation. Stock and placeholder images shown in decorative sections are licensed for demo use only and will be replaced with the client's own production photography upon commission.</p>
+      </div>
+    </div>
+    <p class="legal-fineprint">
+      © <span id="legalYear">2026</span> <a href="https://wetwo.studio" target="_blank" rel="noopener">wetwo.studio</a>. All design, code and creative work shown on this preview are protected by copyright. Concept developed exclusively for Platinum NYC. Unauthorized use is prohibited.
+    </p>
   </div>
 </footer>
 
@@ -2823,6 +3085,13 @@
     success.classList.add('show');
     e.target.reset();
     setTimeout(() => success.classList.remove('show'), 5000);
+  });
+
+  // ---------- Auto-update year in copyright + legal block ----------
+  const _y = new Date().getFullYear();
+  ['copyYear', 'legalYear'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = _y;
   });
 </script>
 </body>
